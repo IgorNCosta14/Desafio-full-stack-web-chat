@@ -1,0 +1,15 @@
+.messagesBox {
+    background-color: var(--gray200);
+    border: 1px var(black);
+}
+
+.messagesBox {
+    width: 600px;
+    padding: 5px;
+    gap: 0.5rem;
+}
+
+.message {
+    display: flex;
+    
+}
