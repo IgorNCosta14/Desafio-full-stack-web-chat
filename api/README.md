@@ -3,7 +3,6 @@
 ## Description
 
 API using Socket.IO to create a bridge between users and to download files with deleted messages.
-
 <br>
 
 # Installation
