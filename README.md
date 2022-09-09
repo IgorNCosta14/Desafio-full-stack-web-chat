@@ -10,8 +10,7 @@
 ## About
 
 A FullStack challenge to create a web chat.
-
-<br><br>
+<br>
 
 The project's Backend was made using [Node.js](https://nodejs.org/en/) and [Express.js](https://expressjs.com/). The frontend was made with [React.js](https://reactjs.org/).
 
