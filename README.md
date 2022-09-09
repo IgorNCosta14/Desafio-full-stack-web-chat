@@ -41,7 +41,6 @@ $ yarn run dev
 ```
 
 It should be running on `https://localhost:3001`
-
 <br>
 
 ## Frontend
