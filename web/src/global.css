@@ -1,7 +1,11 @@
 :root {
     --gray200: #9FB1BC;
-    --gray300: #6E8898;
+    --gray300: #879DAB;
+    --gray400: #6E8898;
+
     --black: #0D0D0D;
+
+    --red500: red;
 }
 
 * {

@@ -15,6 +15,15 @@
     overflow-y: auto;
 }
 
+.messagesBox button {
+    background: var(--gray300);
+}
+
+.messagesBox button:hover {
+    background: var(--gray400);
+    color: var(--red500);
+}
+
 .userMessage {
     max-width: 70%;
 }

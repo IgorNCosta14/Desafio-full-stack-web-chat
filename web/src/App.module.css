@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gray300);
+    background: var(--gray400);
     min-width: 250px;
     min-height: 60px;
     padding: 15px;
