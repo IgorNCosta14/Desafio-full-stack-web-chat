@@ -1,10 +1,7 @@
 :root {
     --gray200: #9FB1BC;
     --gray300: #6E8898;
-    --gray700: #0D0D0D;
-
-    --blue100: #5dacd6;
-    --blue200: #2E5266;
+    --black: #0D0D0D;
 }
 
 * {
@@ -16,4 +13,10 @@
 body {
     background: var(--gray200);
     -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
 }
