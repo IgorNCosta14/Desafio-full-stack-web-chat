@@ -58,3 +58,5 @@ $ yarn
 # start script
 $ yarn run dev
 ```
+It should be running on `https://localhost:3000`
+<br>
