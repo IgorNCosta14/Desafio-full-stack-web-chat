@@ -1,20 +1,32 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import styles from "./Login.module.css"
-import io from 'socket.io-client'
+import styles from "./Login.module.css";
+import io from 'socket.io-client';
 import { MessageList } from "./MessageList";
+import { format } from 'date-fns';
+import { v4 as uuidV4 } from 'uuid';
+import axios from "axios";
 
-const socket = io("http://localhost:3001")
+const socket = io("http://localhost:3001", {
+    withCredentials: false,
+  });
 
 
 interface User {
-    userName: string,
-    isUserAdmin: boolean
+    userName: string;
+    isUserAdmin: boolean;
 }
 
 interface Message {
-    user: string,
-    message: string,
-    date: string
+    id: string;
+    userId: string;
+    user: string;
+    message: string;
+    date: string;
+}
+
+interface IDeleteMessage {
+    id: string;
+    adminId: string;
 }
 
 export function Login() {
@@ -23,6 +35,7 @@ export function Login() {
     const [ user, setUser ] = useState<User>({userName: "", isUserAdmin: false});
     const [ message, setMessage ] = useState('');
     const [ messages, setMessages ] = useState<Message[]>([]);
+    const [ socketId, setSocketId ] = useState('')
 
     function handleGetName(event: ChangeEvent<HTMLTextAreaElement>) {
         setName(event.target.value)
@@ -30,13 +43,15 @@ export function Login() {
 
     function login(event: FormEvent) {
         event.preventDefault()
+        setName('')
+        setMessage('')
 
         const newUser: User = {
             userName: name,
             isUserAdmin: isAdmin
         }
 
-        socket.emit("joinChat", newUser)
+        socket.emit("joinChat", newUser.userName)
         
         setUser(newUser)
     }
@@ -50,17 +65,50 @@ export function Login() {
 
         const addNewMessage = messages;
 
-        const dataNow = new Date();
-
         const newMessage: Message = {
+            id: uuidV4(),
+            userId: socketId,
             user: user.userName,
             message: message,
-            date: dataNow.toString()
+            date: format(new Date, "dd'/'MM'/'Y 'às' HH:mm'h'")
         }
 
         addNewMessage.push(newMessage);
 
         socket.emit("sendMessage", newMessage)
+        setMessage('')
+    }
+
+    function deleteMessage(id: string) {
+        const data: IDeleteMessage = {
+            id,
+            adminId: socketId
+        }
+
+        socket.emit("deleteMessage", data)
+    }
+
+    function handleDownload() {
+        axios({
+            url: 'http://localhost:3001/download',
+            method: 'GET',
+            responseType: 'blob',
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute('download', 'deleted_messages.txt');
+            setTimeout(function() {
+                document.body.appendChild(link);
+                link.click();
+            }, 200)
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert(
+              "Sorry, there was an error processing your request. Please check the dates of your report and try again!"
+            );
+          });
     }
 
     socket.on("previousMessages", (previousMessages) => {
@@ -71,14 +119,22 @@ export function Login() {
         setMessages(receivedMessage);
     })
 
+    socket.on("sendId", (sendId) => {
+        setSocketId(sendId)
+    })
+
     return (
         user.userName === "" ? 
-            <div>
-                
+            <div className={styles.
+                container}>
+                <h2>Web Chat</h2>
                 <form className={styles.loginBox}>
                     <textarea
+                        placeholder="Nome de usuário"
                         value={name}
                         onChange={handleGetName}
+                        maxLength={18}
+                        required
                     />
                     <div className={styles.Wrapper}>
                         <button onClick={login}>Entrar</button>
@@ -97,13 +153,16 @@ export function Login() {
                     <div>
                         <MessageList 
                             messages={messages}
+                            isAdmin={isAdmin}
+                            onDeleteMessage={deleteMessage}
+                            handleDownload={handleDownload}
                         />
                     </div>
                     <textarea 
                         className={styles.messageTextArea}
                         value={message}
                         onChange={handleSetMessage}
-                        placeholder="Digite seu mensagem"
+                        placeholder="Digite sua mensagem"
                     />
                     <button 
                         type="submit" 
