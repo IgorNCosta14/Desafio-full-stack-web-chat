@@ -28,7 +28,7 @@ $ npm install --global yarn
 
 ## Backend
 
-First navigate to `api` folder then run the docker script.
+First navigate to `api` folder then run the dev script.
 
 ```bash
 # change directory
@@ -46,7 +46,7 @@ It should be running on `https://localhost:3001`
 
 ## Frontend
 
-To start the application, navigate to `web` folder and run the start script.
+To start the application, navigate to `web` folder and run the dev script.
 
 ```bash
 # on project root folder
