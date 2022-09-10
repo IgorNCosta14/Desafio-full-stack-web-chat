@@ -140,8 +140,9 @@ export function Chat() {
                         <button onClick={login}>Entrar</button>
                         <div className={styles.inputAdmin}>
                             <span>Admin</span>
+                            
                             <input id={"checkBox"} onChange={() => setIsAdmin(!isAdmin)} type="checkbox" />
-                            <label htmlFor={"checkBox"}/>
+                            <label htmlFor={"checkBox"}></label>
                         </div>    
                     </div>   
                 </form>
