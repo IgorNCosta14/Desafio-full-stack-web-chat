@@ -46,13 +46,57 @@
     justify-content: space-between
 }
 
-.input {
+.inputAdmin {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
 }
+
+/*  */
+
+.inputAdmin input {
+    display: none;
+}
+
+.inputAdmin label {
+    width: 0;
+    height: 0;
+    cursor: pointer;
+}
+
+.inputAdmin input + label:before {
+    content: '';
+    width: 17.45px;
+    height: 17.45px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-color: transparent;
+    border: 1px solid var(--black);
+    background: var(--gray200);
+    display: inline-block;
+}
+
+.inputAdmin input:hover + label:before {
+    border: 2.63px solid var(--gray200);
+    background: var(--gray200);
+    background-color: var(--gray200);
+}
+
+.inputAdmin input:checked + label:before {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.43107 0.342093L4.09914 4.67403L1.61667 2.19156L0.780762 3.02747L4.09914 6.34584L9.26698 1.178L8.43107 0.342093Z' fill='%23F2F2F2'/%3E%3C/svg%3E%0A");
+    background-repeat:no-repeat;
+    background-position: center;
+    border: 1px solid var(--black);
+    background-color: var(--gray200);
+}
+
+.inputAdmin input:checked:hover + label:before {
+    background-color: var(--gray300);
+}
+
+/*  */
 
 .chatBox {
     display: flex;

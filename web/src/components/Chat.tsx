@@ -138,9 +138,10 @@ export function Chat() {
                     />
                     <div className={styles.Wrapper}>
                         <button onClick={login}>Entrar</button>
-                        <div className={styles.input}>
+                        <div className={styles.inputAdmin}>
                             <span>Admin</span>
-                            <input onChange={() => setIsAdmin(!isAdmin)} type="checkbox" />
+                            <input id={"checkBox"} onChange={() => setIsAdmin(!isAdmin)} type="checkbox" />
+                            <label htmlFor={"checkBox"}/>
                         </div>    
                     </div>   
                 </form>
