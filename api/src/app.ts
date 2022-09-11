@@ -21,7 +21,7 @@ const io = new Server(server, {
 
 app.use(express.json());
 
-interface Message {
+interface IMessage {
   id: string;
   userId: string;
   message: string;
@@ -33,8 +33,8 @@ interface IDeleteMessage {
   adminId: string;
 }
 
-const messages: Message[] = [];
-const deletedMessages: Message[] = [];
+const messages: IMessage[] = [];
+const deletedMessages: IMessage[] = [];
 
 app.get('/download', (req, res) => {
   const options = {
