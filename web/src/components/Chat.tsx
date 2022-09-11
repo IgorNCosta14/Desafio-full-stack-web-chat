@@ -70,7 +70,7 @@ export function Chat() {
             userId: socketId,
             user: user.userName,
             message: message,
-            date: format(new Date, "dd'/'MM'/'Y 'às' HH:mm'h'")
+            date: format(new Date, "dd'/'MM'/'Y 'às' HH:mm")
         }
 
         addNewMessage.push(newMessage);
