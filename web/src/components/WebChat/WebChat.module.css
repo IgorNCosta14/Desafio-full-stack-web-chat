@@ -1,0 +1,18 @@
+.chatBox form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+@media (max-width: 1080px) {
+  .chatBox {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 848px) {
+  .chatBox {
+    max-width: 600px;
+  }
+}
