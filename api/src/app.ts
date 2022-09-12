@@ -1,9 +1,11 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import fs from 'fs';
 import path from 'path';
+import { IDeleteMessage, IMessage } from './Interfaces/Interfaces';
+import { AppError } from './errors/AppError';
 
 const app = express();
 
@@ -21,27 +23,19 @@ const io = new Server(server, {
 
 app.use(express.json());
 
-interface IMessage {
-  id: string;
-  userId: string;
-  message: string;
-  date: string;
-}
-
-interface IDeleteMessage {
-  id: string;
-  adminId: string;
-}
-
 const messages: IMessage[] = [];
 const deletedMessages: IMessage[] = [];
 
 app.get('/download', (req, res) => {
-  const options = {
-    root: path.join(__dirname + '/public/deleted_messages.txt'),
-  };
+  try {
+    const options = {
+      root: path.join(__dirname + '/public/deleted_messages.txt'),
+    };
 
-  res.sendFile(options.root);
+    res.sendFile(options.root);
+  } catch (error) {
+    throw new Error('Error, download not done');
+  }
 });
 
 io.on('connection', (socket) => {
@@ -88,5 +82,18 @@ io.on('connection', (socket) => {
 
   socket.on;
 });
+
+app.use(
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({ message: err.message });
+    }
+
+    return response.status(500).json({
+      status: 'error',
+      message: `Internal server error - ${err.message}`,
+    });
+  },
+);
 
 export { server };
