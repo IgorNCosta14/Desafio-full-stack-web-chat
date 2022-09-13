@@ -17,9 +17,23 @@ $ yarn
 
 # API
 
+## Running for the first time
+
+The project can be runned with Docker.
+
+First, build the project from the docker-compose file.
+
+```bash
+# build project
+$ yarn run docker
+```
+
 ## Running the API
 
 ```bash
+# development
+$ yarn docker
+
 # development
 $ yarn run dev
 ```

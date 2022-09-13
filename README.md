@@ -28,17 +28,14 @@ $ npm install --global yarn
 
 ## Backend
 
-First navigate to `api` folder then run the dev script.
+First navigate to `api` folder then run the docker script.
 
 ```bash
 # change directory
 $ cd api
 
-# install dependencies
-$ yarn
-
 # build project
-$ yarn run dev
+$ yarn run docker
 ```
 
 It should be running on `https://localhost:3001`
