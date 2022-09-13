@@ -51,9 +51,9 @@ io.on('connection', (socket) => {
 
   socket.on(
     'sendMessage',
-    ({ MessageId, user, userId, message, date }: IMessage) => {
+    ({ messageId, user, userId, message, date }: IMessage) => {
       const addNewMessage: IMessage = {
-        MessageId,
+        messageId,
         user,
         userId,
         message,
@@ -72,14 +72,14 @@ io.on('connection', (socket) => {
   socket.on('deleteMessage', (data: IDeleteMessage) => {
     console.log(data);
     const messageToDelete = messages.find(
-      (message) => message.MessageId === data.MessageId,
+      (message) => message.messageId === data.messageId,
     );
 
     if (messageToDelete) {
       const messageIndex = messages.indexOf(messageToDelete);
 
       const filteredMessageToDelete = {
-        messageId: messageToDelete.MessageId,
+        messageId: messageToDelete.messageId,
         userId: messageToDelete.userId,
         messageText: messageToDelete.message,
       };

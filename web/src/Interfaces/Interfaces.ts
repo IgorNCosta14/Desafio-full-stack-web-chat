@@ -4,7 +4,7 @@ export interface IUser {
 }
 
 export interface IMessage {
-  id: string;
+  messageId: string;
   userId: string;
   user: string;
   message: string;
@@ -14,12 +14,12 @@ export interface IMessage {
 export interface IMessageListProps {
   isAdmin: boolean;
   messages: IMessage[];
-  onDeleteMessage: (id: string) => void;
+  onDeleteMessage: (messageId: string) => void;
   handleDownload: () => void;
 }
 
 export interface IDeleteMessage {
-  id: string;
+  messageId: string;
   adminId: string;
 }
 

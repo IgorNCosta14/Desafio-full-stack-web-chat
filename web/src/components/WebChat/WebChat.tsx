@@ -55,7 +55,7 @@ export function WebChat() {
     const addNewMessage: IMessage[] = messages;
 
     const newMessage: IMessage = {
-      MessageId: uuidV4(),
+      messageId: uuidV4(),
       userId: socketId,
       user: user.userName,
       message: messageText,
@@ -67,9 +67,9 @@ export function WebChat() {
     socket.emit('sendMessage', newMessage);
   }
 
-  function deleteMessage(MessageId: string) {
+  function deleteMessage(messageId: string) {
     const data: IDeleteMessage = {
-      MessageId,
+      messageId,
       adminId: socketId,
     };
 

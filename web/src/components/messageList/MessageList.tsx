@@ -26,7 +26,7 @@ export function MessageList({
       <ul className={styles.messageList}>
         {messages.map((message) => {
           return isAdmin === true ? (
-            <div key={message.MessageId} className={styles.messageContainer}>
+            <div key={message.messageId} className={styles.messageContainer}>
               <li className={styles.message}>
                 <div className={styles.messageInfo}>
                   <div>
@@ -40,14 +40,14 @@ export function MessageList({
               </li>
               <button
                 className={styles.trash}
-                onClick={(event) => deleteMessage(event, message.MessageId)}
+                onClick={(event) => deleteMessage(event, message.messageId)}
               >
                 <Trash size={20} />
               </button>
               <div ref={bottomRef} />
             </div>
           ) : (
-            <li key={message.MessageId} className={styles.message}>
+            <li key={message.messageId} className={styles.message}>
               <div className={styles.messageInfo}>
                 <div>
                   <strong>{message.user}</strong>

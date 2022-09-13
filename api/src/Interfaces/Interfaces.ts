@@ -1,11 +1,18 @@
 export interface IMessage {
-  id: string;
+  messageId: string;
+  user: string;
   userId: string;
   message: string;
   date: string;
 }
 
 export interface IDeleteMessage {
-  id: string;
+  messageId: string;
   adminId: string;
+}
+
+export interface IDeletedMessages {
+  messageId: string;
+  userId: string;
+  messageText: string;
 }
