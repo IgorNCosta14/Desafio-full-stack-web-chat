@@ -4,7 +4,11 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import fs from 'fs';
 import path from 'path';
-import { IDeleteMessage, IMessage } from './Interfaces/Interfaces';
+import {
+  IDeletedMessages,
+  IDeleteMessage,
+  IMessage,
+} from './Interfaces/Interfaces';
 import { AppError } from './errors/AppError';
 
 const app = express();
@@ -24,7 +28,7 @@ const io = new Server(server, {
 app.use(express.json());
 
 const messages: IMessage[] = [];
-const deletedMessages: IMessage[] = [];
+const deletedMessages: IDeletedMessages[] = [];
 
 app.get('/download', (req, res) => {
   try {
@@ -45,34 +49,61 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('sendId', socket.id);
   });
 
-  socket.on('sendMessage', (newMessage) => {
-    messages.push(newMessage);
+  socket.on(
+    'sendMessage',
+    ({ MessageId, user, userId, message, date }: IMessage) => {
+      const addNewMessage: IMessage = {
+        MessageId,
+        user,
+        userId,
+        message,
+        date,
+      };
+      messages.push(addNewMessage);
 
-    socket.emit('previousMessages', messages);
+      console.log(messages);
 
-    socket.broadcast.emit('receivedMessage', messages);
-  });
+      socket.emit('previousMessages', messages);
+
+      socket.broadcast.emit('receivedMessage', messages);
+    },
+  );
 
   socket.on('deleteMessage', (data: IDeleteMessage) => {
-    const messageToDelete = messages.find((message) => message.id === data.id);
+    console.log(data);
+    const messageToDelete = messages.find(
+      (message) => message.MessageId === data.MessageId,
+    );
 
     if (messageToDelete) {
       const messageIndex = messages.indexOf(messageToDelete);
 
+      const filteredMessageToDelete = {
+        messageId: messageToDelete.MessageId,
+        userId: messageToDelete.userId,
+        messageText: messageToDelete.message,
+      };
+
+      deletedMessages.push(filteredMessageToDelete);
+
       messages.splice(messageIndex, 1);
 
-      deletedMessages.push(messageToDelete);
-
-      const deletedMessagesText = `Id do remetente: ${messageToDelete.userId}, Id da mensagem: ${messageToDelete.id}, Menssagem: ${messageToDelete.message}"\n\n`;
-
-      fs.appendFileSync('src/public/deleted_messages.txt', deletedMessagesText);
+      fs.writeFile(
+        'src/public/deleted_messages.txt',
+        JSON.stringify(deletedMessages),
+        function (err) {
+          if (err) {
+            throw new AppError('Message not found');
+          }
+        },
+      );
 
       io.to(data.adminId).emit('messageDeleted');
 
       socket.emit('receivedMessage', messages);
       socket.broadcast.emit('receivedMessage', messages);
     } else {
-      throw new Error('Message not found');
+      throw new AppError('Message not found');
     }
   });
 
