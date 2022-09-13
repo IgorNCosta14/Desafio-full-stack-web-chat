@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    container_name: webchat
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/usr/app
