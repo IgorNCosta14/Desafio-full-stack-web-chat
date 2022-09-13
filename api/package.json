@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r dotenv/config --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "dev": "ts-node-dev -r dotenv/config --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "docker": "docker compose up -d --build -V"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
