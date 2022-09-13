@@ -2,21 +2,10 @@
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 10%;
-}
-
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--gray400);
-  min-width: 250px;
-  min-height: 60px;
-  padding: 15px;
-  border-radius: 6px;
-  border: 1px solid black;
+  gap: 10px;
 }
 
 @media (max-width: 768px) {
