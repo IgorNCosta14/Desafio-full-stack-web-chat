@@ -1,7 +1,10 @@
 :root {
+  --gray100: #b7c4cd;
   --gray200: #9fb1bc;
   --gray300: #879dab;
   --gray400: #6e8898;
+
+  --white: white;
 
   --black: #0d0d0d;
 
@@ -23,7 +26,7 @@ body,
 input,
 textarea,
 button {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 1rem;
 }
