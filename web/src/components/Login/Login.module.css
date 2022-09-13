@@ -1,56 +1,68 @@
-.loginBox {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.userNameInput {
+  height: 25px;
+  padding: 15px;
+  border: 0px solid var(--black);
+  border-radius: 4px;
+  outline: none;
 }
 
-h2 {
+input[type='submit'] {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #01d28e;
+  border: 1px solid #01d28e;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+input[type='submit']:hover {
+  background: #6cf0c2;
+}
+
+.buttonContainer {
   display: flex;
   justify-content: center;
-  text-align: center;
 }
 
-.loginBox textarea {
-  display: flex;
-  resize: none;
-  width: 150px;
-  height: 28px;
-  background: var(--gray200);
+.loginBox {
+  background-color: var(--gray400);
+  border: 1px solid var(--black);
   border-radius: 4px;
-  overflow: hidden;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.loginForm {
+  background-color: var(--gray300);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.list-container {
+  display: flex;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
   outline: none;
-  padding: 5px;
-  border: 1px solid var(--black);
-}
-
-.loginBox button {
-  background: var(--gray200);
-  border: 0px;
-  padding: 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 1px solid var(--black);
-  padding: 5px;
-}
-
-.loginBox button:hover {
-  background: var(--gray300);
-  border: 1px;
-  cursor: pointer;
-  border: 1px solid var(--black);
-}
-
-.Wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .inputAdmin {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 0.5rem;
 }
 
@@ -64,24 +76,25 @@ h2 {
   width: 0;
   height: 0;
   cursor: pointer;
+  user-select: none;
 }
 
 .inputAdmin input + label:before {
-  content: "";
+  content: '';
   width: 18px;
   height: 18px;
   box-sizing: border-box;
   border-radius: 2px;
   background-color: transparent;
   border: 1px solid var(--black);
-  background: var(--gray200);
+  background: var(--white);
   display: inline-block;
 }
 
 .inputAdmin input:hover + label:before {
-  border: 1px solid var(---black);
-  background: var(--gray200);
-  background-color: var(--gray200);
+  border: 1px solid var(--black);
+  background: var(--white);
+  background-color: var(--white);
 }
 
 .inputAdmin input:checked + label:before {
@@ -89,10 +102,10 @@ h2 {
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid var(--black);
-  background-color: var(--gray200);
+  background-color: var(--white);
 }
 
 .inputAdmin input:checked:hover + label:before {
-  background-color: var(--gray300);
+  background-color: var(--white);
   border: 1px solid var(--black);
 }

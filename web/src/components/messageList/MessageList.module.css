@@ -1,47 +1,9 @@
-.messagesBox {
-  background-color: var(--gray200);
-  border: 1px var(--black);
+.messageContainer {
   display: flex;
-  flex-direction: column;
-  width: 50vw;
-  max-width: 1000px;
-  padding: 5px;
-  gap: 0.5rem;
-  height: 200px;
-  background: var(--gray200);
-  border-radius: 4px;
-  padding: 5px;
-  border: 1px solid var(--black);
-  overflow-y: auto;
-  white-space: pre-wrap;
-}
-
-.messagesBox button {
-  background: var(--gray300);
-}
-
-.messagesBox button:hover {
-  background: var(--gray400);
-  color: var(--red500);
-}
-
-.userMessage {
-  max-width: 70%;
-}
-
-.messageUtil {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.message {
-  display: flex;
-  justify-content: space-between;
-}
-
-.messageText {
-  word-wrap: break-word;
-  max-width: 500px;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1800px;
+  padding: 0 5px 0;
 }
 
 .trash {
@@ -51,16 +13,63 @@
   align-items: center;
   border-radius: 4px;
   border: 1px solid var(--black);
+  margin: 5px 0 0 5px;
+  padding-top: 4px;
 }
 
-@media (max-width: 1080px) {
-  .messagesBox {
-    max-width: 800px;
-  }
+.messageContainer button {
+  background: var(--gray300);
 }
 
-@media (max-width: 848px) {
-  .messagesBox {
-    max-width: 600px;
-  }
+.messageContainer button:hover {
+  background: var(--gray400);
+  color: var(--red500);
+}
+
+.messageBox {
+  padding: 5px;
+  background: var(--gray100);
+  width: 90vw;
+  max-width: 1800px;
+}
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--gray100);
+  width: 100%;
+  max-width: 1850;
+  height: 70vh;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  width: 98%;
+  background: var(--gray300);
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  margin: 5px 0 0;
+  padding: 5px;
+  list-style-type: none;
+  white-space: pre-line;
+  word-wrap: break-word;
+  gap: 5px;
+}
+
+.messageInfo {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  justify-content: space-between;
+}
+
+.messageText {
+  background: var(--gray100);
+  border-radius: 4px;
+  padding: 10px 5px;
 }

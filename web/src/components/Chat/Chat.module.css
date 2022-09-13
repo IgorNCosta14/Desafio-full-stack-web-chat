@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 1000px;
   gap: 0.5rem;
 }
 
@@ -17,37 +16,24 @@
   background: var(--gray200);
   border-radius: 4px;
   outline: none;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid var(--black);
   align-items: center;
+  font-size: 87.5%;
 }
 
-.chatBox button {
-  background: var(--gray200);
-  border: 0px;
-  padding: 2px;
+.chatButton {
+  margin-top: 10px;
   cursor: pointer;
+  font-size: 15px;
+  background: #01d28e;
+  border: 1px solid #01d28e;
+  color: #fff;
+  padding: 10px 20px;
   border-radius: 4px;
-  border: 1px solid var(--black);
-  padding: 5px;
-  width: 60px;
+  margin-bottom: 10px;
 }
 
-.chatBox button:hover {
-  background: var(--gray300);
-  border: 1px;
-  cursor: pointer;
-  border: 1px solid var(--black);
-}
-
-@media (max-width: 1080px) {
-  .chatBox {
-    max-width: 800px;
-  }
-}
-
-@media (max-width: 848px) {
-  .chatBox {
-    max-width: 600px;
-  }
+.chatButton:hover {
+  background: #6cf0c2;
 }

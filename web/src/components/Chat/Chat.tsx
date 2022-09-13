@@ -1,13 +1,31 @@
-import { ChangeEvent, FormEvent, useEffect, useState, KeyboardEvent } from "react";
-import { IChatProps } from "../../Interfaces/Interfaces";
-import styles from "./Chat.module.css";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState,
+  KeyboardEvent,
+} from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import { IChatProps } from '../../Interfaces/Interfaces';
+import styles from './Chat.module.css';
 
 export function Chat({ sendMessage }: IChatProps) {
-  const [messageText, setMessageText] = useState("");
+  const [messageText, setMessageText] = useState('');
+
+  const customId = 'customChat';
+
+  const errorToast = () => {
+    toast(`Digite uma mensagem antes de enviar!`, {
+      className: 'connectionLost-toast',
+      draggable: true,
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+    });
+  };
 
   useEffect(() => {
-    document.title = "Chat"
-  }, [])
+    document.title = 'Chat';
+  }, []);
 
   function handleSetMessage(event: ChangeEvent<HTMLTextAreaElement>) {
     setMessageText(event.target.value);
@@ -15,22 +33,25 @@ export function Chat({ sendMessage }: IChatProps) {
 
   function handleSendMessage(event: FormEvent) {
     event.preventDefault();
- 
-    sendMessage(messageText);
-    setMessageText("")
+
+    if (messageText === '') {
+      errorToast();
+    } else {
+      sendMessage(messageText);
+      setMessageText('');
+    }
   }
 
   const ChatKeyPressHandler = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && !event.shiftKey) {
-      handleSendMessage(event)
+      handleSendMessage(event);
     }
 
     if (event.key === 'Enter' && event.shiftKey) {
-      
       event.preventDefault();
-      let msgNewText =  `${messageText}\n`  ;
+      let msgNewText = `${messageText}\n`;
       setMessageText(msgNewText);
-    }    
+    }
   };
 
   return (
@@ -41,10 +62,16 @@ export function Chat({ sendMessage }: IChatProps) {
         onChange={handleSetMessage}
         placeholder="Digite sua mensagem"
         onKeyPress={ChatKeyPressHandler}
+        required
       />
-      <button type="submit" onClick={handleSendMessage}>
+      <button
+        className={styles.chatButton}
+        type="submit"
+        onClick={handleSendMessage}
+      >
         Enviar
       </button>
+      <ToastContainer />
     </div>
   );
 }

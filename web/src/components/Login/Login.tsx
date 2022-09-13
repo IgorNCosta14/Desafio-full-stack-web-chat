@@ -1,61 +1,97 @@
-import { ChangeEvent, FormEvent, useState, KeyboardEvent, useEffect } from "react";
-import { ILoginProps, IUser } from "../../Interfaces/Interfaces";
-import styles from "./Login.module.css";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useState,
+  KeyboardEvent,
+} from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import { ILoginProps, IUser } from '../../Interfaces/Interfaces';
+import styles from './Login.module.css';
 
 export function Login({ handleLogin }: ILoginProps) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    document.title = "WebChat"
-  }, [])
+    document.title = 'WebChat';
+  }, []);
 
-  function handleSendName(event: ChangeEvent<HTMLTextAreaElement>) {
+  const customId = 'customLogin';
+
+  const errorToast = () => {
+    toast(`O nome do usuário deve ser preenchido`, {
+      className: 'nameNotFilled-toast',
+      draggable: true,
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+    });
+  };
+
+  function handleSetName(event: ChangeEvent<HTMLInputElement>) {
     setName(event.target.value);
   }
 
   function login(event: FormEvent) {
     event.preventDefault();
 
+    if (name === '') {
+      errorToast();
+    }
+
     const newUser: IUser = {
       userName: name,
       isUserAdmin: isAdmin,
     };
 
+    setName('');
     handleLogin(newUser);
   }
 
   const loginKeyPressHandler = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
-
-      login(event)
+      login(event);
     }
   };
 
   return (
-    <div>
-      <h2>Web Chat</h2>
-      <form className={styles.loginBox}>
-        <textarea
-          placeholder="Nome de usuário"
-          value={name}
-          onChange={handleSendName}
-          onKeyPress={loginKeyPressHandler}
-          maxLength={18}
-          required
-        />
-        <div className={styles.Wrapper}>
-          <button onClick={login}>Entrar</button>
-          <div className={styles.inputAdmin}>
-            <span>Admin</span>
-
+    <div className={styles.loginBox}>
+      <div className={styles.title}>Sign In</div>
+      <form className={styles.loginForm}>
+        <div className={styles.inputs}>
+          <div className={styles.inputContainer}>
+            <label>
+              <strong>Usuário</strong>
+            </label>
             <input
-              id={"checkBox"}
-              onChange={() => setIsAdmin(!isAdmin)}
-              type="checkbox"
+              className={styles.userNameInput}
+              type="text"
+              name="uname"
+              required
+              placeholder="Nome de usuário"
+              value={name}
+              onChange={handleSetName}
+              onKeyPress={loginKeyPressHandler}
+              maxLength={14}
             />
-            <label htmlFor={"checkBox"}></label>
+            <ToastContainer />
           </div>
+          <div className={styles.inputContainer}>
+            <div className={styles.inputAdmin}>
+              <span>
+                <strong>Admin</strong>
+              </span>
+              <input
+                id={'checkBox'}
+                onChange={() => setIsAdmin(!isAdmin)}
+                type="checkbox"
+              />
+              <label htmlFor={'checkBox'}></label>
+            </div>
+          </div>
+        </div>
+        <div className={styles.buttonContainer}>
+          <input type="submit" onClick={login} />
         </div>
       </form>
     </div>

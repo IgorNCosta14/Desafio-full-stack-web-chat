@@ -1,7 +1,7 @@
-import styles from "./MessageList.module.css";
-import { Trash } from "phosphor-react";
-import { FormEvent } from "react";
-import { IMessageListProps } from "../../Interfaces/Interfaces";
+import { Trash } from 'phosphor-react';
+import { FormEvent, useEffect, useRef } from 'react';
+import { IMessageListProps } from '../../Interfaces/Interfaces';
+import styles from './MessageList.module.css';
 
 export function MessageList({
   messages,
@@ -9,41 +9,59 @@ export function MessageList({
   onDeleteMessage,
   handleDownload,
 }: IMessageListProps) {
-  function deleteMessage(event: FormEvent, id: string) {
+  const bottomRef = useRef<null | HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  function deleteMessage(event: FormEvent, MessageId: string) {
     event.preventDefault();
-    onDeleteMessage(id);
+    onDeleteMessage(MessageId);
     handleDownload();
   }
 
   return (
-    <div className={styles.messagesBox}>
-      {messages.map((message) => {
-        return isAdmin === true ? (
-          <div key={message.id} className={styles.message}>
-            <div className={styles.userMessage}>
-              <strong>{message.user}: </strong>
-              <span className={styles.messageText}>{message.message}</span>
-            </div>
-            <div className={styles.messageUtil}>
-              <span>{message.date}</span>
+    <div className={styles.messageBox}>
+      <ul className={styles.messageList}>
+        {messages.map((message) => {
+          return isAdmin === true ? (
+            <div key={message.MessageId} className={styles.messageContainer}>
+              <li className={styles.message}>
+                <div className={styles.messageInfo}>
+                  <div>
+                    <strong>{message.user}</strong>
+                  </div>
+                  <div className={styles.dateAndAdmin}>
+                    <div>{message.date}</div>
+                  </div>
+                </div>
+                <div className={styles.messageText}>{message.message}</div>
+              </li>
               <button
                 className={styles.trash}
-                onClick={(event) => deleteMessage(event, message.id)}
+                onClick={(event) => deleteMessage(event, message.MessageId)}
               >
                 <Trash size={20} />
               </button>
+              <div ref={bottomRef} />
             </div>
-          </div>
-        ) : (
-          <div key={message.id} className={styles.message}>
-            <div className={styles.userMessage}>
-              <strong>{message.user}: </strong>
-              <span className={styles.messageText}>{message.message}</span>
-            </div>
-            <span>{message.date}</span>
-          </div>
-        );
-      })}
+          ) : (
+            <li key={message.MessageId} className={styles.message}>
+              <div className={styles.messageInfo}>
+                <div>
+                  <strong>{message.user}</strong>
+                </div>
+                <div className={styles.dateAndAdmin}>
+                  <div>{message.date}</div>
+                </div>
+              </div>
+              <div className={styles.messageText}>{message.message}</div>
+              <div ref={bottomRef} />
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
