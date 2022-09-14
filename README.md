@@ -35,7 +35,7 @@ First navigate to `api` folder then run the docker script.
 $ cd api
 
 # build project
-$ yarn run docker
+$ yarn docker
 ```
 
 It should be running on `https://localhost:3001`
@@ -53,7 +53,7 @@ $ cd web
 $ yarn
 
 # start script
-$ yarn run dev
+$ yarn dev
 ```
 It should be running on `https://localhost:3000`
 <br>
